@@ -1,22 +1,264 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Candidatus</title>
+<title>Alabe Games</title>
+<meta name="description" content="Jogos indie brasileiros, fáceis de começar e difíceis de largar. A estreia é Candidatus, um simulador de carreira política.">
+<meta property="og:title" content="Alabe Games">
+<meta property="og:description" content="Jogos indie brasileiros, fáceis de começar e difíceis de largar.">
+<meta property="og:image" content="https://alabegames.github.io/candidatus-pt.png">
+<meta name="theme-color" content="#152C6E">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="icone-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Nunito:wght@400;600;800&display=swap">
 <style>
-  body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; background:#0F2A78; color:#fff; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; text-align:center; padding:16px; box-sizing:border-box; }
-  h1 { color:#FFC83D; font-size:3em; margin:0 0 8px; letter-spacing:2px; }
-  a { color:#FFC83D; }
-  img { width:160px; height:160px; border-radius:32px; }
+/* Mesma identidade do jogo: azul da abertura, amarelo do selo, Barlow Condensed nos títulos e Nunito no texto. */
+:root {
+	--navy: #152C6E;
+	--navy-deep: #0E1F55;
+	--ray: #1E3D8F;
+	--yellow: #FFC629;
+	--orange: #FFB020;
+	--ink: #FFFFFF;
+	--muted: #C3CEF0;
+	--card: #1B3680;
+	--line: rgba(255, 255, 255, 0.12);
+	--display: "Barlow Condensed", "Arial Narrow", sans-serif;
+	--body: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+	color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--navy-deep); color: var(--ink); font: 17px/1.6 var(--body); }
+a { color: var(--yellow); }
+img { max-width: 100%; height: auto; display: block; }
+.wrap { width: min(1080px, 100%); margin: 0 auto; padding-inline: 20px; }
+
+/* Topo */
+.top { position: sticky; top: 0; z-index: 10; background: rgba(14, 31, 85, 0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; gap: 16px; padding-block: 10px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font: 800 22px/1 var(--display); letter-spacing: .04em; text-transform: uppercase; }
+.brand img { width: 40px; height: 40px; }
+.brand span b { color: var(--yellow); font-weight: 800; }
+.nav { margin-left: auto; display: flex; gap: 18px; align-items: center; }
+.nav a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: 15px; }
+.nav a:hover, .nav a:focus-visible { color: var(--ink); }
+.lang { display: flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.lang button { background: none; border: 0; color: var(--muted); font: 700 13px/1 var(--body); padding: 7px 10px; cursor: pointer; }
+.lang button[aria-pressed="true"] { background: var(--yellow); color: var(--navy-deep); }
+.lang button:focus-visible { outline: 2px solid var(--yellow); outline-offset: -2px; }
+
+/* Abertura com os raios girando, como na abertura do jogo */
+.hero { position: relative; overflow: hidden; background: var(--navy); text-align: center; padding-block: 72px 80px; }
+.hero::before { content: ""; position: absolute; left: 50%; top: 42%; width: 2400px; height: 2400px; margin: -1200px 0 0 -1200px;
+	background: repeating-conic-gradient(var(--ray) 0 7.5deg, var(--navy) 7.5deg 15deg); animation: spin 90s linear infinite; }
+.hero::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 42%, transparent 0 30%, rgba(14, 31, 85, 0.75) 75%); }
+.hero > * { position: relative; z-index: 1; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.selo { width: min(260px, 60vw); margin: 0 auto; position: relative; }
+.selo img { width: 100%; filter: drop-shadow(0 18px 30px rgba(0, 0, 0, .35)); }
+.selo .wink { position: absolute; inset: 0; opacity: 0; }
+.selo:hover .wink, .selo:focus-within .wink { opacity: 1; }
+.wordmark { margin: 22px 0 0; }
+.wordmark img { width: min(420px, 80vw); margin: 0 auto; }
+.wordmark .games-mark { width: min(320px, 60vw); margin: 10px auto 0; }
+.tagline { max-width: 34ch; margin: 26px auto 0; font-size: clamp(18px, 2.4vw, 22px); color: var(--muted); text-wrap: balance; }
+
+/* Seções */
+section { padding-block: 72px; }
+.eyebrow { font: 700 14px/1 var(--display); letter-spacing: .22em; text-transform: uppercase; color: var(--yellow); margin: 0 0 10px; }
+h2 { font: 800 clamp(34px, 5vw, 48px)/1.05 var(--display); letter-spacing: .01em; margin: 0 0 18px; text-wrap: balance; }
+h3 { font: 800 30px/1.1 var(--display); margin: 0 0 6px; letter-spacing: .02em; }
+
+/* Cartão do jogo */
+.game { display: grid; grid-template-columns: 1.15fr 1fr; gap: 32px; align-items: center; background: var(--card); border-radius: 24px; padding: 24px; }
+.game .art { border-radius: 16px; overflow: hidden; aspect-ratio: 1024 / 500; background: var(--navy); }
+.game .art img { width: 100%; height: 100%; object-fit: cover; }
+.game .info { min-width: 0; }
+.game .head { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+.game .head img { width: 64px; height: 64px; border-radius: 16px; }
+.game .short { color: var(--muted); margin: 0 0 16px; }
+.pills { list-style: none; margin: 0 0 20px; padding: 0; display: grid; gap: 10px; }
+.pills li { display: flex; gap: 10px; align-items: baseline; }
+.pills b { font: 800 16px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--yellow); white-space: nowrap; }
+.status { display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 198, 41, 0.14); color: var(--yellow); border: 1px solid rgba(255, 198, 41, 0.4); border-radius: 999px; padding: 6px 14px; font-weight: 700; font-size: 14px; }
+.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--yellow); }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 16px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: 15px; }
+
+/* Sobre e contato */
+.about { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.about p { color: var(--muted); max-width: 60ch; margin: 0 0 14px; }
+.values { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.values li { background: var(--card); border-radius: 16px; padding: 16px 18px; }
+.values b { display: block; font: 800 20px/1.2 var(--display); letter-spacing: .03em; color: var(--yellow); margin-bottom: 2px; }
+.values span { color: var(--muted); font-size: 15px; }
+.contact { text-align: center; background: var(--navy); }
+.contact p { color: var(--muted); margin: 0 auto 18px; max-width: 46ch; }
+.mail { display: inline-block; background: var(--yellow); color: var(--navy-deep); text-decoration: none; font: 800 22px/1 var(--display); letter-spacing: .04em; padding: 16px 28px; border-radius: 14px; }
+.mail:hover, .mail:focus-visible { background: var(--orange); }
+footer { border-top: 1px solid var(--line); padding-block: 26px; color: var(--muted); font-size: 14px; }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+
+@media (max-width: 760px) {
+	.nav a { display: none; }
+	.game, .about { grid-template-columns: 1fr; }
+	.pills li { flex-direction: column; gap: 2px; }
+	section { padding-block: 56px; }
+}
+@media (prefers-reduced-motion: reduce) { .hero::before { animation: none; } html { scroll-behavior: auto; } }
 </style>
 </head>
 <body>
-<div>
-  <img src="icon.png" alt="Candidatus">
-  <h1>CANDIDATUS</h1>
-  <p>From city council to head of state. A political career simulator.</p>
-  <p><a href="privacy.html">Privacy Policy</a> · Contact: <a href="mailto:alabegames@gmail.com">alabegames@gmail.com</a></p>
-</div>
+<header class="top">
+	<div class="wrap">
+		<a class="brand" href="#"><img src="selo-alabe.png" alt=""><span>Alabe <b>Games</b></span></a>
+		<nav class="nav" aria-label="Seções">
+			<a href="#jogos" data-i18n="nav_games">Jogos</a>
+			<a href="#sobre" data-i18n="nav_about">Sobre</a>
+			<a href="#contato" data-i18n="nav_contact">Contato</a>
+			<div class="lang" role="group" aria-label="Idioma">
+				<button type="button" data-lang="pt" aria-pressed="true">PT</button>
+				<button type="button" data-lang="en" aria-pressed="false">EN</button>
+				<button type="button" data-lang="es" aria-pressed="false">ES</button>
+			</div>
+		</nav>
+	</div>
+</header>
+
+<main>
+	<div class="hero">
+		<div class="selo" tabindex="0" aria-label="Alabe Games">
+			<img src="selo-alabe.png" alt="" width="512" height="512">
+			<img class="wink" src="selo-alabe-piscando.png" alt="" width="512" height="512">
+		</div>
+		<h1 class="wordmark"><img src="alabe.png" alt="Alabe" width="1024" height="241"><img class="games-mark" src="games.png" alt="Games" width="1024" height="130"></h1>
+		<p class="tagline wrap" data-i18n="tagline">Jogos indie brasileiros, fáceis de começar e difíceis de largar.</p>
+	</div>
+
+	<section id="jogos">
+		<div class="wrap">
+			<p class="eyebrow" data-i18n="games_eyebrow">Nossos jogos</p>
+			<h2 data-i18n="games_title">A estreia</h2>
+			<article class="game">
+				<div class="art"><img data-art src="candidatus-pt.png" alt="Candidatus: da Câmara Municipal à Presidência" width="1024" height="500" loading="lazy"></div>
+				<div class="info">
+					<div class="head">
+						<img src="candidatus-icone.png" alt="" width="64" height="64">
+						<div>
+							<h3>Candidatus</h3>
+							<span class="status" data-i18n="status">Em teste no Google Play</span>
+						</div>
+					</div>
+					<p class="short" data-i18n="short">Comece aos 23 anos com a ficha de filiação e um sonho. Você vai terminar a carreira como chefe de Estado ou atrás das grades?</p>
+					<ul class="pills">
+						<li><b data-i18n="p1t">Vença eleições</b><span data-i18n="p1">do vereador ao presidente, com votos, cadeiras e rival de verdade</span></li>
+						<li><b data-i18n="p2t">Governe</b><span data-i18n="p2">leis, orçamento, obras, equipe e crises que voltam para te cobrar</span></li>
+						<li><b data-i18n="p3t">Pague o preço</b><span data-i18n="p3">a corrupção deixa um risco escondido que pode virar escândalo ou prisão</span></li>
+					</ul>
+					<ul class="facts">
+						<li data-i18n="f1">Android</li>
+						<li data-i18n="f2">Português, inglês e espanhol</li>
+						<li data-i18n="f3">Funciona offline</li>
+						<li data-i18n="f4">Sem anúncio forçado</li>
+					</ul>
+				</div>
+			</article>
+		</div>
+	</section>
+
+	<section id="sobre">
+		<div class="wrap about">
+			<div>
+				<p class="eyebrow" data-i18n="about_eyebrow">Sobre o estúdio</p>
+				<h2 data-i18n="about_title">Pequeno, brasileiro e teimoso</h2>
+				<p data-i18n="about_1">A Alabe Games é um estúdio independente do Brasil. A gente faz jogos de celular que você entende em segundos e continua jogando por horas.</p>
+				<p data-i18n="about_2">Cada jogo nasce de uma ideia simples levada a sério: muita escolha, consequência de verdade e nenhum truque para prender o jogador.</p>
+			</div>
+			<ul class="values">
+				<li><b data-i18n="v1t">Simples na superfície</b><span data-i18n="v1">Toques rápidos, telas claras, partida no ônibus ou no sofá.</span></li>
+				<li><b data-i18n="v2t">Profundo por baixo</b><span data-i18n="v2">Sistemas que lembram o que você fez e respondem anos depois.</span></li>
+				<li><b data-i18n="v3t">Justo com quem joga</b><span data-i18n="v3">Anúncio só se você quiser, e nada de pagar para vencer.</span></li>
+			</ul>
+		</div>
+	</section>
+
+	<section id="contato" class="contact">
+		<div class="wrap">
+			<p class="eyebrow" data-i18n="contact_eyebrow">Contato</p>
+			<h2 data-i18n="contact_title">Fala com a gente</h2>
+			<p data-i18n="contact_p">Imprensa, parcerias, bug ou ideia para o próximo jogo: escreve que a gente responde.</p>
+			<a class="mail" href="mailto:alabegames@gmail.com">alabegames@gmail.com</a>
+		</div>
+	</section>
+</main>
+
+<footer>
+	<div class="wrap">
+		<span>© 2026 Alabe Games</span>
+		<a href="privacy.html" data-i18n="privacy">Política de privacidade</a>
+	</div>
+</footer>
+
+<script>
+const T = {
+	pt: {},
+	en: {
+		nav_games: "Games", nav_about: "About", nav_contact: "Contact",
+		tagline: "Indie games from Brazil, easy to pick up and hard to put down.",
+		games_eyebrow: "Our games", games_title: "Our debut", status: "In testing on Google Play",
+		short: "Start at 23 with a party card and a dream. Will you end your career as head of state, or behind bars?",
+		p1t: "Win elections", p1: "from city council to president, with real votes, seats and a rival who remembers",
+		p2t: "Govern", p2: "laws, budget, public works, your team and crises that come back to haunt you",
+		p3t: "Pay the price", p3: "corruption leaves a hidden risk that can turn into scandal or prison",
+		f1: "Android", f2: "English, Portuguese and Spanish", f3: "Plays offline", f4: "No forced ads",
+		about_eyebrow: "About the studio", about_title: "Small, Brazilian and stubborn",
+		about_1: "Alabe Games is an independent studio from Brazil. We make mobile games you understand in seconds and keep playing for hours.",
+		about_2: "Every game starts from a simple idea taken seriously: lots of choices, real consequences and no tricks to keep you hooked.",
+		v1t: "Simple on the surface", v1: "Quick taps, clear screens, a round on the bus or on the couch.",
+		v2t: "Deep underneath", v2: "Systems that remember what you did and answer years later.",
+		v3t: "Fair to players", v3: "Ads only if you want them, and no pay to win.",
+		contact_eyebrow: "Contact", contact_title: "Talk to us",
+		contact_p: "Press, partnerships, a bug or an idea for our next game: write to us and we will answer.",
+		privacy: "Privacy policy"
+	},
+	es: {
+		nav_games: "Juegos", nav_about: "Sobre nosotros", nav_contact: "Contacto",
+		tagline: "Juegos indie de Brasil, fáciles de empezar y difíciles de dejar.",
+		games_eyebrow: "Nuestros juegos", games_title: "El debut", status: "En prueba en Google Play",
+		short: "Empieza a los 23 años con un carné de partido y un sueño. ¿Terminarás tu carrera como jefe de Estado o tras las rejas?",
+		p1t: "Gana elecciones", p1: "del concejo municipal a la presidencia, con votos, escaños y un rival que no olvida",
+		p2t: "Gobierna", p2: "leyes, presupuesto, obras, tu equipo y crisis que vuelven a cobrarte",
+		p3t: "Paga el precio", p3: "la corrupción deja un riesgo oculto que puede estallar en escándalo o prisión",
+		f1: "Android", f2: "Español, inglés y portugués", f3: "Funciona sin conexión", f4: "Sin anuncios forzados",
+		about_eyebrow: "Sobre el estudio", about_title: "Pequeño, brasileño y testarudo",
+		about_1: "Alabe Games es un estudio independiente de Brasil. Hacemos juegos para el celular que entiendes en segundos y sigues jugando por horas.",
+		about_2: "Cada juego nace de una idea simple tomada en serio: muchas decisiones, consecuencias reales y ningún truco para atraparte.",
+		v1t: "Simple por fuera", v1: "Toques rápidos, pantallas claras, una partida en el bus o en el sofá.",
+		v2t: "Profundo por dentro", v2: "Sistemas que recuerdan lo que hiciste y responden años después.",
+		v3t: "Justo con quien juega", v3: "Anuncios solo si quieres, y nada de pagar para ganar.",
+		contact_eyebrow: "Contacto", contact_title: "Habla con nosotros",
+		contact_p: "Prensa, alianzas, un error o una idea para el próximo juego: escríbenos y te respondemos.",
+		privacy: "Política de privacidad"
+	}
+};
+const ART = { pt: "candidatus-pt.png", en: "candidatus-en.png", es: "candidatus-es.png" };
+document.querySelectorAll("[data-i18n]").forEach(el => { T.pt[el.dataset.i18n] = el.textContent; });
+function setLang(l) {
+	if (!T[l]) l = "pt";
+	document.documentElement.lang = l === "pt" ? "pt-BR" : l;
+	document.querySelectorAll("[data-i18n]").forEach(el => { const v = T[l][el.dataset.i18n]; if (v) el.textContent = v; });
+	document.querySelector("[data-art]").src = ART[l];
+	document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === l)));
+	try { localStorage.setItem("alabe_lang", l); } catch (e) {}
+}
+document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
+let saved = null;
+try { saved = localStorage.getItem("alabe_lang"); } catch (e) {}
+const nav = (navigator.language || "pt").slice(0, 2);
+setLang(saved || (nav === "es" ? "es" : nav === "pt" ? "pt" : "en"));
+</script>
 </body>
 </html>
