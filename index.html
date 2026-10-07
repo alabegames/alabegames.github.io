@@ -4,252 +4,385 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Alabe Games</title>
-<meta name="description" content="Jogos indie brasileiros, fáceis de começar e difíceis de largar. A estreia é Candidatus, um simulador de carreira política.">
+<meta name="description" content="Estúdio indie brasileiro. Jogos fáceis de começar, cheios de escolhas e consequências. Conheça Candidatus, nosso simulador de carreira política.">
 <meta property="og:title" content="Alabe Games">
-<meta property="og:description" content="Jogos indie brasileiros, fáceis de começar e difíceis de largar.">
+<meta property="og:description" content="Fáceis de começar. Difíceis de esquecer. Conheça Candidatus, nosso simulador de carreira política.">
 <meta property="og:image" content="https://alabegames.github.io/candidatus-pt.png">
 <meta name="theme-color" content="#152C6E">
 <link rel="icon" href="favicon.png">
 <link rel="apple-touch-icon" href="icone-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Nunito:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Nunito:wght@400;600;700;800&display=swap">
 <style>
-/* Mesma identidade do jogo: azul da abertura, amarelo do selo, Barlow Condensed nos títulos e Nunito no texto. */
+/* Identidade do jogo: azul da abertura, amarelo do selo, Barlow Condensed nos títulos e Nunito no texto. */
 :root {
 	--navy: #152C6E;
 	--navy-deep: #0E1F55;
 	--ray: #1E3D8F;
+	--card: #1B3680;
+	--card2: #22408F;
 	--yellow: #FFC629;
 	--orange: #FFB020;
+	--coral: #FF6B6B;
+	--green: #3DD68C;
 	--ink: #FFFFFF;
 	--muted: #C3CEF0;
-	--card: #1B3680;
-	--line: rgba(255, 255, 255, 0.12);
+	--paper: #F4EFE3;
+	--paper-ink: #1A2348;
+	--line: rgba(255, 255, 255, 0.13);
 	--display: "Barlow Condensed", "Arial Narrow", sans-serif;
 	--body: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 	color-scheme: dark;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--navy-deep); color: var(--ink); font: 17px/1.6 var(--body); }
-a { color: var(--yellow); }
-img { max-width: 100%; height: auto; display: block; }
-.wrap { width: min(1080px, 100%); margin: 0 auto; padding-inline: 20px; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body { margin: 0; background: var(--navy-deep); color: var(--ink); font: 17px/1.6 var(--body); overflow-x: hidden; }
+a { color: inherit; }
+img { display: block; max-width: 100%; height: auto; }
+h1, h2, h3, p { margin-top: 0; }
+h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: .01em; }
+.wrap { width: min(1140px, 100% - 40px); margin-inline: auto; }
+.eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 14px; color: var(--yellow); font: 700 15px/1 var(--display); letter-spacing: .22em; text-transform: uppercase; }
+.eyebrow::before { content: ""; width: 26px; height: 3px; border-radius: 3px; background: var(--yellow); }
+:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
 
 /* Topo */
-.top { position: sticky; top: 0; z-index: 10; background: rgba(14, 31, 85, 0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
-.top .wrap { display: flex; align-items: center; gap: 16px; padding-block: 10px; }
-.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font: 800 22px/1 var(--display); letter-spacing: .04em; text-transform: uppercase; }
-.brand img { width: 40px; height: 40px; }
-.brand span b { color: var(--yellow); font-weight: 800; }
-.nav { margin-left: auto; display: flex; gap: 18px; align-items: center; }
-.nav a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: 15px; }
-.nav a:hover, .nav a:focus-visible { color: var(--ink); }
-.lang { display: flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
-.lang button { background: none; border: 0; color: var(--muted); font: 700 13px/1 var(--body); padding: 7px 10px; cursor: pointer; }
+.top { position: sticky; top: 0; z-index: 20; background: rgba(14, 31, 85, .9); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.top .wrap { height: 70px; display: flex; align-items: center; gap: 24px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 800 24px/1 var(--display); letter-spacing: .05em; text-transform: uppercase; }
+.brand img { width: 42px; height: 42px; }
+.brand b { color: var(--yellow); }
+.nav { margin-left: auto; display: flex; align-items: center; gap: 26px; }
+.nav > a { color: var(--muted); font-weight: 700; font-size: 15px; text-decoration: none; transition: color .18s; }
+.nav > a:hover { color: var(--yellow); }
+.lang { display: flex; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: 999px; }
+.lang button { border: 0; background: none; color: var(--muted); font: 800 12px var(--body); padding: 7px 10px; border-radius: 999px; cursor: pointer; }
 .lang button[aria-pressed="true"] { background: var(--yellow); color: var(--navy-deep); }
-.lang button:focus-visible { outline: 2px solid var(--yellow); outline-offset: -2px; }
 
-/* Abertura com os raios girando, como na abertura do jogo */
-.hero { position: relative; overflow: hidden; background: var(--navy); text-align: center; padding-block: 72px 80px; }
-.hero::before { content: ""; position: absolute; left: 50%; top: 42%; width: 2400px; height: 2400px; margin: -1200px 0 0 -1200px;
-	background: repeating-conic-gradient(var(--ray) 0 7.5deg, var(--navy) 7.5deg 15deg); animation: spin 90s linear infinite; }
-.hero::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 42%, transparent 0 30%, rgba(14, 31, 85, 0.75) 75%); }
-.hero > * { position: relative; z-index: 1; }
+/* Abertura com os raios girando, igual à abertura do jogo */
+.hero { position: relative; isolation: isolate; overflow: hidden; background: var(--navy); padding: 64px 0 84px; }
+.hero::before { content: ""; position: absolute; z-index: -2; left: 72%; top: 50%; width: 2600px; height: 2600px; margin: -1300px 0 0 -1300px;
+	background: repeating-conic-gradient(var(--ray) 0 7.5deg, var(--navy) 7.5deg 15deg); animation: spin 120s linear infinite; }
+.hero::after { content: ""; position: absolute; z-index: -1; inset: 0; background: radial-gradient(circle at 72% 50%, transparent 0 22%, rgba(14, 31, 85, .82) 70%), linear-gradient(90deg, rgba(14, 31, 85, .7), transparent 60%); }
 @keyframes spin { to { transform: rotate(360deg); } }
-.selo { width: min(260px, 60vw); margin: 0 auto; position: relative; }
-.selo img { width: 100%; filter: drop-shadow(0 18px 30px rgba(0, 0, 0, .35)); }
-.selo .wink { position: absolute; inset: 0; opacity: 0; }
-.selo:hover .wink, .selo:focus-within .wink { opacity: 1; }
-.wordmark { margin: 22px 0 0; }
-.wordmark img { width: min(420px, 80vw); margin: 0 auto; }
-.wordmark .games-mark { width: min(320px, 60vw); margin: 10px auto 0; }
-.tagline { max-width: 34ch; margin: 26px auto 0; font-size: clamp(18px, 2.4vw, 22px); color: var(--muted); text-wrap: balance; }
+.hero-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 40px; }
+.selo { position: relative; width: 116px; margin-bottom: 22px; }
+.selo img { width: 100%; filter: drop-shadow(0 10px 20px rgba(0, 0, 0, .35)); }
+.selo .wink { position: absolute; inset: 0; opacity: 0; animation: wink 6s infinite; }
+@keyframes wink { 0%, 92%, 100% { opacity: 0; } 94%, 97% { opacity: 1; } }
+h1 { margin-bottom: 18px; font-size: clamp(52px, 7vw, 92px); line-height: .92; text-transform: uppercase; text-wrap: balance; }
+h1 em { color: var(--yellow); font-style: normal; }
+.lead { max-width: 480px; margin: 0; color: var(--muted); font-size: 19px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.button { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 22px; border-radius: 14px; text-decoration: none; font: 800 21px/1 var(--display); letter-spacing: .04em; text-transform: uppercase; transition: transform .18s, background .18s, border-color .18s; }
+.button:hover { transform: translateY(-2px); }
+.button.primary { background: var(--yellow); color: var(--navy-deep); box-shadow: 0 6px 0 #C98F00; }
+.button.primary:hover { background: #FFD45C; }
+.button.secondary { border: 2px solid var(--line); color: var(--ink); }
+.button.secondary:hover { border-color: var(--yellow); }
+
+/* Celulares com prints do jogo */
+.phones { position: relative; height: 560px; }
+.phone { position: absolute; width: 270px; aspect-ratio: 9 / 16; padding: 9px; border-radius: 34px; background: #0A1640; border: 2px solid rgba(255, 255, 255, .16); box-shadow: 0 30px 70px rgba(0, 0, 0, .45); }
+.phone img { width: 100%; height: 100%; object-fit: cover; border-radius: 26px; }
+.phone.front { left: 50%; top: 0; transform: translateX(-30%) rotate(3deg); z-index: 2; animation: float 6s ease-in-out infinite; }
+.phone.back { left: 50%; top: 60px; transform: translateX(-105%) rotate(-7deg); opacity: .92; }
+@keyframes float { 50% { transform: translateX(-30%) translateY(-10px) rotate(3deg); } }
+.tag { position: absolute; z-index: 3; padding: 9px 15px; border-radius: 999px; background: var(--yellow); color: var(--navy-deep); font: 800 17px/1 var(--display); letter-spacing: .05em; text-transform: uppercase; box-shadow: 0 8px 22px rgba(0, 0, 0, .3); }
+.tag.t1 { right: 2%; top: 60px; transform: rotate(4deg); }
+.tag.t2 { left: 4%; bottom: 40px; background: var(--coral); color: #fff; transform: rotate(-4deg); }
+
+/* Faixa de fatos */
+.proof { border-block: 1px solid var(--line); background: var(--navy-deep); }
+.proof .wrap { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 18px; }
+.proof-label { color: var(--muted); font-size: 15px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { display: flex; align-items: center; gap: 8px; padding: 7px 13px; border: 1px solid var(--line); border-radius: 999px; font-size: 14px; font-weight: 700; }
+.chip i { width: 8px; height: 8px; border-radius: 50%; background: var(--yellow); }
 
 /* Seções */
-section { padding-block: 72px; }
-.eyebrow { font: 700 14px/1 var(--display); letter-spacing: .22em; text-transform: uppercase; color: var(--yellow); margin: 0 0 10px; }
-h2 { font: 800 clamp(34px, 5vw, 48px)/1.05 var(--display); letter-spacing: .01em; margin: 0 0 18px; text-wrap: balance; }
-h3 { font: 800 30px/1.1 var(--display); margin: 0 0 6px; letter-spacing: .02em; }
+section { padding-block: 88px; }
+.section-head { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 32px; }
+h2 { margin-bottom: 0; font-size: clamp(40px, 5.4vw, 62px); line-height: .98; text-transform: uppercase; text-wrap: balance; }
+.note { max-width: 380px; margin: 0; color: var(--muted); }
 
 /* Cartão do jogo */
-.game { display: grid; grid-template-columns: 1.15fr 1fr; gap: 32px; align-items: center; background: var(--card); border-radius: 24px; padding: 24px; }
-.game .art { border-radius: 16px; overflow: hidden; aspect-ratio: 1024 / 500; background: var(--navy); }
-.game .art img { width: 100%; height: 100%; object-fit: cover; }
-.game .info { min-width: 0; }
-.game .head { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+.game { display: grid; grid-template-columns: 1.1fr .9fr; overflow: hidden; border-radius: 26px; background: var(--card); border: 1px solid var(--line); }
+.game .art { display: flex; align-items: center; background: var(--navy); }
+.game .art img { width: 100%; aspect-ratio: 1024 / 500; object-fit: cover; }
+.game .info { padding: 30px 32px; }
+.game .head { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
 .game .head img { width: 64px; height: 64px; border-radius: 16px; }
-.game .short { color: var(--muted); margin: 0 0 16px; }
-.pills { list-style: none; margin: 0 0 20px; padding: 0; display: grid; gap: 10px; }
-.pills li { display: flex; gap: 10px; align-items: baseline; }
-.pills b { font: 800 16px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--yellow); white-space: nowrap; }
-.status { display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 198, 41, 0.14); color: var(--yellow); border: 1px solid rgba(255, 198, 41, 0.4); border-radius: 999px; padding: 6px 14px; font-weight: 700; font-size: 14px; }
+.game h3 { margin: 0; font-size: 38px; line-height: 1; }
+.status { display: inline-flex; align-items: center; gap: 8px; margin-top: 6px; padding: 5px 12px; border-radius: 999px; background: rgba(255, 198, 41, .14); border: 1px solid rgba(255, 198, 41, .4); color: var(--yellow); font-size: 13px; font-weight: 800; }
 .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--yellow); }
-.facts { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 16px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: 15px; }
+.short { color: var(--muted); margin-bottom: 18px; }
+.features { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.features li { display: grid; grid-template-columns: 130px 1fr; gap: 12px; font-size: 15px; }
+.features b { color: var(--yellow); font: 800 18px/1.2 var(--display); letter-spacing: .06em; text-transform: uppercase; }
 
-/* Sobre e contato */
-.about { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-.about p { color: var(--muted); max-width: 60ch; margin: 0 0 14px; }
-.values { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-.values li { background: var(--card); border-radius: 16px; padding: 16px 18px; }
-.values b { display: block; font: 800 20px/1.2 var(--display); letter-spacing: .03em; color: var(--yellow); margin-bottom: 2px; }
-.values span { color: var(--muted); font-size: 15px; }
-.contact { text-align: center; background: var(--navy); }
-.contact p { color: var(--muted); margin: 0 auto 18px; max-width: 46ch; }
-.mail { display: inline-block; background: var(--yellow); color: var(--navy-deep); text-decoration: none; font: 800 22px/1 var(--display); letter-spacing: .04em; padding: 16px 28px; border-radius: 14px; }
-.mail:hover, .mail:focus-visible { background: var(--orange); }
-footer { border-top: 1px solid var(--line); padding-block: 26px; color: var(--muted); font-size: 14px; }
-footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+/* Galeria de prints */
+.gallery { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; margin-top: 34px; }
+.shot { margin: 0; }
+.shot .frame { padding: 7px; border-radius: 24px; background: #0A1640; border: 2px solid rgba(255, 255, 255, .14); box-shadow: 0 18px 40px rgba(0, 0, 0, .35); transition: transform .25s; }
+.shot:hover .frame { transform: translateY(-6px) rotate(-1deg); }
+.shot img { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 18px; }
+.shot figcaption { margin-top: 12px; text-align: center; }
+.shot figcaption b { display: block; font: 800 20px/1.1 var(--display); text-transform: uppercase; letter-spacing: .04em; color: var(--yellow); }
+.shot figcaption span { color: var(--muted); font-size: 14px; }
 
-@media (max-width: 760px) {
-	.nav a { display: none; }
-	.game, .about { grid-template-columns: 1fr; }
-	.pills li { flex-direction: column; gap: 2px; }
-	section { padding-block: 56px; }
+/* Estúdio: papel do jornal do jogo */
+.studio { background: var(--paper); color: var(--paper-ink); }
+.studio .eyebrow { color: #A0701A; }
+.studio .eyebrow::before { background: var(--coral); }
+.studio-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 60px; }
+.studio-copy { color: #4C5675; }
+.principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 40px; }
+.principle { padding: 22px; border-radius: 18px; background: #fff; border: 1px solid rgba(26, 35, 72, .1); }
+.principle .num { display: inline-block; margin-bottom: 14px; padding: 4px 10px; border-radius: 8px; background: var(--navy); color: var(--yellow); font: 800 15px/1 var(--display); letter-spacing: .08em; }
+.principle h3 { margin-bottom: 6px; font-size: 26px; text-transform: uppercase; }
+.principle p { margin: 0; color: #4C5675; font-size: 15px; }
+
+/* Projetos em segredo */
+.projects { background: linear-gradient(180deg, var(--navy-deep), var(--navy)); }
+.project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.project { overflow: hidden; border-radius: 22px; background: var(--card); border: 1px solid var(--line); transition: transform .25s, border-color .25s; }
+.project:hover { transform: translateY(-6px); border-color: rgba(255, 198, 41, .5); }
+.project .visual { position: relative; display: grid; place-items: center; height: 220px; overflow: hidden; background: var(--navy); }
+.project .visual::before { content: ""; position: absolute; width: 1400px; height: 1400px; background: repeating-conic-gradient(var(--ray) 0 7.5deg, var(--navy) 7.5deg 15deg); animation: spin 90s linear infinite; }
+.project.b .visual::before { animation-direction: reverse; background: repeating-conic-gradient(#3A2A6E 0 7.5deg, #2A1F55 7.5deg 15deg); }
+.project .visual::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle, transparent 0 25%, rgba(14, 31, 85, .7) 80%); }
+.project .core { position: relative; z-index: 1; display: grid; place-items: center; width: 92px; height: 92px; border-radius: 50%; background: var(--yellow); color: var(--navy-deep); font: 900 58px/1 var(--display); box-shadow: 0 0 0 8px rgba(255, 198, 41, .25), 0 14px 30px rgba(0, 0, 0, .35); animation: pulse 3.6s ease-in-out infinite; }
+.project.b .core { background: var(--coral); color: #fff; box-shadow: 0 0 0 8px rgba(255, 107, 107, .25), 0 14px 30px rgba(0, 0, 0, .35); }
+@keyframes pulse { 50% { transform: scale(1.08); } }
+.project .chip-id { position: absolute; z-index: 1; left: 16px; top: 16px; padding: 6px 11px; border-radius: 999px; background: rgba(14, 31, 85, .75); font: 800 14px/1 var(--display); letter-spacing: .14em; }
+.project .copy { padding: 20px 24px 24px; }
+.project .meta { color: var(--yellow); font: 800 14px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; }
+.project h3 { margin: 10px 0 6px; font-size: 30px; text-transform: uppercase; }
+.project p { margin: 0; color: var(--muted); font-size: 15px; }
+.foot-note { margin: 20px 0 0; color: var(--muted); font-size: 14px; }
+
+/* Contato */
+.contact { text-align: center; background: var(--navy); position: relative; overflow: hidden; isolation: isolate; }
+.contact::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 50%; width: 2400px; height: 2400px; margin: -1200px 0 0 -1200px; background: repeating-conic-gradient(var(--ray) 0 7.5deg, var(--navy) 7.5deg 15deg); opacity: .5; animation: spin 140s linear infinite reverse; }
+.contact .eyebrow { justify-content: center; }
+.contact p { max-width: 50ch; margin: 14px auto 24px; color: var(--muted); }
+.mail { display: inline-block; padding: 16px 28px; border-radius: 14px; background: var(--yellow); color: var(--navy-deep); text-decoration: none; font: 800 24px/1 var(--display); letter-spacing: .04em; box-shadow: 0 6px 0 #C98F00; }
+.mail:hover { background: #FFD45C; }
+footer { padding: 22px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
+footer a { text-decoration: none; }
+footer a:hover { color: var(--yellow); }
+
+/* Aparecer ao rolar */
+.motion .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s cubic-bezier(.2, .7, .2, 1); }
+.motion .reveal.in { opacity: 1; transform: none; }
+
+@media (max-width: 960px) {
+	.hero-grid, .game, .studio-grid { grid-template-columns: 1fr; }
+	.hero::before { left: 50%; top: 78%; }
+	.hero::after { background: radial-gradient(circle at 50% 78%, transparent 0 20%, rgba(14, 31, 85, .82) 70%); }
+	.phones { height: 500px; max-width: 520px; width: 100%; margin-inline: auto; }
+	.gallery { grid-template-columns: repeat(5, 230px); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; }
+	.shot { scroll-snap-align: start; }
 }
-@media (prefers-reduced-motion: reduce) { .hero::before { animation: none; } html { scroll-behavior: auto; } }
+@media (max-width: 640px) {
+	.wrap { width: min(1140px, 100% - 32px); }
+	.nav > a { display: none; }
+	.nav { gap: 8px; }
+	.brand { font-size: 20px; }
+	.brand img { width: 34px; height: 34px; }
+	.hero { padding: 44px 0 56px; }
+	.selo { width: 92px; }
+	.lead { font-size: 17px; }
+	.phones { height: 430px; }
+	.phone { width: 210px; padding: 7px; border-radius: 28px; }
+	.phone img { border-radius: 21px; }
+	.phone.back { top: 46px; transform: translateX(-92%) rotate(-7deg); }
+	.tag { font-size: 15px; }
+	.tag.t1 { right: 0; top: 30px; }
+	.tag.t2 { left: 0; bottom: 20px; }
+	.proof .wrap { flex-direction: column; align-items: flex-start; gap: 10px; }
+	section { padding-block: 60px; }
+	.section-head { display: block; }
+	.note { margin-top: 12px; }
+	.game .info { padding: 22px 18px; }
+	.features li { grid-template-columns: 1fr; gap: 2px; }
+	.gallery { grid-template-columns: repeat(5, 200px); gap: 14px; }
+	.principles, .project-grid { grid-template-columns: 1fr; }
+	.studio-grid { gap: 16px; }
+	.mail { font-size: 20px; padding: 14px 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+	.motion .reveal { opacity: 1; transform: none; }
+}
 </style>
 </head>
 <body>
-<header class="top">
-	<div class="wrap">
-		<a class="brand" href="#"><img src="selo-alabe.png" alt=""><span>Alabe <b>Games</b></span></a>
-		<nav class="nav" aria-label="Seções">
-			<a href="#jogos" data-i18n="nav_games">Jogos</a>
-			<a href="#sobre" data-i18n="nav_about">Sobre</a>
-			<a href="#contato" data-i18n="nav_contact">Contato</a>
-			<div class="lang" role="group" aria-label="Idioma">
-				<button type="button" data-lang="pt" aria-pressed="true">PT</button>
-				<button type="button" data-lang="en" aria-pressed="false">EN</button>
-				<button type="button" data-lang="es" aria-pressed="false">ES</button>
+<header class="top"><div class="wrap">
+	<a class="brand" href="#top" aria-label="Alabe Games"><img src="selo-alabe.png" alt=""><span>Alabe <b>Games</b></span></a>
+	<nav class="nav" aria-label="Seções">
+		<a href="#jogo" data-i18n="nav_game">O jogo</a>
+		<a href="#novidades" data-i18n="nav_projects">Em desenvolvimento</a>
+		<a href="#estudio" data-i18n="nav_about">O estúdio</a>
+		<a href="#contato" data-i18n="nav_contact">Contato</a>
+		<div class="lang" role="group" aria-label="Idioma"><button type="button" data-lang="pt" aria-pressed="true">PT</button><button type="button" data-lang="en" aria-pressed="false">EN</button><button type="button" data-lang="es" aria-pressed="false">ES</button></div>
+	</nav>
+</div></header>
+
+<main id="top">
+	<div class="hero"><div class="wrap hero-grid">
+		<div>
+			<div class="selo" aria-hidden="true"><img src="selo-alabe.png" alt="" width="512" height="512"><img class="wink" src="selo-alabe-piscando.png" alt="" width="512" height="512"></div>
+			<p class="eyebrow" data-i18n="hero_label">Estúdio indie brasileiro</p>
+			<h1 data-i18n="hero_title">Fáceis de começar.<br><em>Difíceis de esquecer.</em></h1>
+			<p class="lead" data-i18n="hero_desc">Em Candidatus, você começa aos 23 anos com um sonho na política. Vença eleições, governe e tente chegar à Presidência. Ou acabe atrás das grades.</p>
+			<div class="actions"><a class="button primary" href="#jogo" data-i18n="hero_cta">Conheça Candidatus</a><a class="button secondary" href="#estudio" data-i18n="hero_more">O estúdio</a></div>
+		</div>
+		<div class="phones" aria-hidden="true">
+			<div class="phone back"><img src="print-debate.jpg" alt="" width="540" height="960"></div>
+			<div class="phone front"><img src="print-painel.jpg" alt="" width="540" height="960"></div>
+			<span class="tag t1" data-i18n="tag1">Vereadora aos 29</span>
+			<span class="tag t2" data-i18n="tag2">Debate ao vivo</span>
+		</div>
+	</div></div>
+
+	<div class="proof"><div class="wrap"><span class="proof-label" data-i18n="proof_label">Feito para jogar do seu jeito</span><div class="chips"><span class="chip"><i></i>Android</span><span class="chip"><i></i><span data-i18n="fact_offline">Funciona offline</span></span><span class="chip"><i></i><span data-i18n="fact_lang">PT, EN e ES</span></span><span class="chip"><i></i><span data-i18n="fact_ads">Sem anúncio forçado</span></span></div></div></div>
+
+	<section id="jogo"><div class="wrap">
+		<div class="section-head reveal"><div><p class="eyebrow" data-i18n="game_eyebrow">Em destaque</p><h2 data-i18n="game_title">Uma carreira.<br>Mil consequências.</h2></div><p class="note" data-i18n="game_desc">Seu primeiro cargo é só o começo. O que você faz com o poder, e o que ele faz com você?</p></div>
+		<article class="game reveal">
+			<div class="art"><img data-art src="candidatus-pt.png" alt="Candidatus: da Câmara Municipal à Presidência" width="1024" height="500" loading="lazy"></div>
+			<div class="info">
+				<div class="head"><img src="candidatus-icone.png" alt="" width="64" height="64"><div><h3>Candidatus</h3><span class="status" data-i18n="status">Em teste no Google Play</span></div></div>
+				<p class="short" data-i18n="short">Um simulador de carreira política: comece aos 23 anos, dispute eleições, governe e tente chegar à Presidência sem acabar atrás das grades.</p>
+				<ul class="features">
+					<li><b data-i18n="p1t">Vença eleições</b><span data-i18n="p1">do vereador ao presidente, com votos, cadeiras e um rival que não esquece</span></li>
+					<li><b data-i18n="p2t">Governe</b><span data-i18n="p2">leis, orçamento, obras, equipe e crises que voltam para te cobrar</span></li>
+					<li><b data-i18n="p3t">Pague o preço</b><span data-i18n="p3">a corrupção deixa um risco escondido que pode virar escândalo ou prisão</span></li>
+				</ul>
 			</div>
-		</nav>
-	</div>
-</header>
-
-<main>
-	<div class="hero">
-		<div class="selo" tabindex="0" aria-label="Alabe Games">
-			<img src="selo-alabe.png" alt="" width="512" height="512">
-			<img class="wink" src="selo-alabe-piscando.png" alt="" width="512" height="512">
+		</article>
+		<div class="gallery">
+			<figure class="shot reveal"><div class="frame"><img src="print-criar.jpg" alt="Tela de criação do político" width="540" height="960" loading="lazy"></div><figcaption><b data-i18n="s1t">Crie seu político</b><span data-i18n="s1">País, nome, rosto e profissão</span></figcaption></figure>
+			<figure class="shot reveal"><div class="frame"><img src="print-painel.jpg" alt="Painel do mandato" width="540" height="960" loading="lazy"></div><figcaption><b data-i18n="s2t">Governe</b><span data-i18n="s2">Aprovação, fundos e escolhas</span></figcaption></figure>
+			<figure class="shot reveal"><div class="frame"><img src="print-debate.jpg" alt="Debate na TV" width="540" height="960" loading="lazy"></div><figcaption><b data-i18n="s3t">Debate na TV</b><span data-i18n="s3">Resposta rápida, plateia exigente</span></figcaption></figure>
+			<figure class="shot reveal"><div class="frame"><img src="print-apuracao.jpg" alt="Apuração da eleição" width="540" height="960" loading="lazy"></div><figcaption><b data-i18n="s4t">Apuração</b><span data-i18n="s4">Cada urna conta</span></figcaption></figure>
+			<figure class="shot reveal"><div class="frame"><img src="print-manchete.jpg" alt="Manchete do jornal do jogo" width="540" height="960" loading="lazy"></div><figcaption><b data-i18n="s5t">Vire manchete</b><span data-i18n="s5">Para o bem ou para o mal</span></figcaption></figure>
 		</div>
-		<h1 class="wordmark"><img src="alabe.png" alt="Alabe" width="1024" height="241"><img class="games-mark" src="games.png" alt="Games" width="1024" height="130"></h1>
-		<p class="tagline wrap" data-i18n="tagline">Jogos indie brasileiros, fáceis de começar e difíceis de largar.</p>
-	</div>
+	</div></section>
 
-	<section id="jogos">
-		<div class="wrap">
-			<p class="eyebrow" data-i18n="games_eyebrow">Nossos jogos</p>
-			<h2 data-i18n="games_title">A estreia</h2>
-			<article class="game">
-				<div class="art"><img data-art src="candidatus-pt.png" alt="Candidatus: da Câmara Municipal à Presidência" width="1024" height="500" loading="lazy"></div>
-				<div class="info">
-					<div class="head">
-						<img src="candidatus-icone.png" alt="" width="64" height="64">
-						<div>
-							<h3>Candidatus</h3>
-							<span class="status" data-i18n="status">Em teste no Google Play</span>
-						</div>
-					</div>
-					<p class="short" data-i18n="short">Comece aos 23 anos com a ficha de filiação e um sonho. Você vai terminar a carreira como chefe de Estado ou atrás das grades?</p>
-					<ul class="pills">
-						<li><b data-i18n="p1t">Vença eleições</b><span data-i18n="p1">do vereador ao presidente, com votos, cadeiras e rival de verdade</span></li>
-						<li><b data-i18n="p2t">Governe</b><span data-i18n="p2">leis, orçamento, obras, equipe e crises que voltam para te cobrar</span></li>
-						<li><b data-i18n="p3t">Pague o preço</b><span data-i18n="p3">a corrupção deixa um risco escondido que pode virar escândalo ou prisão</span></li>
-					</ul>
-					<ul class="facts">
-						<li data-i18n="f1">Android</li>
-						<li data-i18n="f2">Português, inglês e espanhol</li>
-						<li data-i18n="f3">Funciona offline</li>
-						<li data-i18n="f4">Sem anúncio forçado</li>
-					</ul>
-				</div>
-			</article>
+	<section class="studio" id="estudio"><div class="wrap">
+		<div class="studio-grid reveal">
+			<div><p class="eyebrow" data-i18n="about_eyebrow">Sobre o estúdio</p><h2 data-i18n="about_title">Pequenos jogos.<br>Grandes decisões.</h2></div>
+			<div class="studio-copy"><p data-i18n="about_1">A Alabe Games é um estúdio independente brasileiro. Fazemos jogos fáceis de pegar e difíceis de largar, sem truques para prender sua atenção.</p><p data-i18n="about_2">Começamos no celular e estamos explorando novas ideias nos bastidores. O que não muda: ideias próprias, escolhas de verdade e respeito por quem joga.</p></div>
 		</div>
-	</section>
+		<div class="principles">
+			<article class="principle reveal"><span class="num">01</span><h3 data-i18n="v1t">Simples na superfície</h3><p data-i18n="v1">Toques rápidos, telas claras. Uma partida no ônibus ou no sofá.</p></article>
+			<article class="principle reveal"><span class="num">02</span><h3 data-i18n="v2t">Profundo por baixo</h3><p data-i18n="v2">Sistemas que lembram o que você fez e respondem anos depois.</p></article>
+			<article class="principle reveal"><span class="num">03</span><h3 data-i18n="v3t">Justo com quem joga</h3><p data-i18n="v3">Anúncio só se você quiser. Nada de pagar para vencer.</p></article>
+		</div>
+	</div></section>
 
-	<section id="sobre">
-		<div class="wrap about">
-			<div>
-				<p class="eyebrow" data-i18n="about_eyebrow">Sobre o estúdio</p>
-				<h2 data-i18n="about_title">Pequeno, brasileiro e teimoso</h2>
-				<p data-i18n="about_1">A Alabe Games é um estúdio independente do Brasil. A gente faz jogos de celular que você entende em segundos e continua jogando por horas.</p>
-				<p data-i18n="about_2">Cada jogo nasce de uma ideia simples levada a sério: muita escolha, consequência de verdade e nenhum truque para prender o jogador.</p>
-			</div>
-			<ul class="values">
-				<li><b data-i18n="v1t">Simples na superfície</b><span data-i18n="v1">Toques rápidos, telas claras, partida no ônibus ou no sofá.</span></li>
-				<li><b data-i18n="v2t">Profundo por baixo</b><span data-i18n="v2">Sistemas que lembram o que você fez e respondem anos depois.</span></li>
-				<li><b data-i18n="v3t">Justo com quem joga</b><span data-i18n="v3">Anúncio só se você quiser, e nada de pagar para vencer.</span></li>
-			</ul>
+	<section class="projects" id="novidades"><div class="wrap">
+		<div class="section-head reveal"><div><p class="eyebrow" data-i18n="projects_eyebrow">Nos bastidores</p><h2 data-i18n="projects_title">Dois projetos.<br>Segredo por enquanto.</h2></div><p class="note" data-i18n="projects_intro">Tem dois jogos novos em desenvolvimento. Ainda não podemos contar o que são, e o mistério faz parte.</p></div>
+		<div class="project-grid">
+			<article class="project reveal"><div class="visual" aria-hidden="true"><span class="chip-id">ALABE / 02</span><span class="core">?</span></div><div class="copy"><div class="meta" data-i18n="project_status">Em desenvolvimento</div><h3 data-i18n="project_one">Projeto em segredo</h3><p data-i18n="project_one_desc">Ainda sem nome, sem trailer e sem data. Só podemos dizer que está tomando forma.</p></div></article>
+			<article class="project b reveal"><div class="visual" aria-hidden="true"><span class="chip-id">ALABE / 03</span><span class="core">?</span></div><div class="copy"><div class="meta" data-i18n="project_status">Em desenvolvimento</div><h3 data-i18n="project_two">Outro projeto em segredo</h3><p data-i18n="project_two_desc">Mais um mundo sendo montado nos bastidores. Os detalhes ficam com a gente, por enquanto.</p></div></article>
 		</div>
-	</section>
+		<p class="foot-note reveal" data-i18n="projects_foot">A gente conta quando estiver pronto para contar.</p>
+	</div></section>
 
-	<section id="contato" class="contact">
-		<div class="wrap">
-			<p class="eyebrow" data-i18n="contact_eyebrow">Contato</p>
-			<h2 data-i18n="contact_title">Fala com a gente</h2>
-			<p data-i18n="contact_p">Imprensa, parcerias, bug ou ideia para o próximo jogo: escreve que a gente responde.</p>
-			<a class="mail" href="mailto:alabegames@gmail.com">alabegames@gmail.com</a>
-		</div>
-	</section>
+	<section class="contact" id="contato"><div class="wrap">
+		<p class="eyebrow" data-i18n="contact_eyebrow">Vamos conversar</p>
+		<h2 data-i18n="contact_title">Uma ideia? Escreve pra gente.</h2>
+		<p data-i18n="contact_p">Imprensa, parcerias, bug ou sugestão para o próximo jogo: nossa caixa de entrada está aberta.</p>
+		<a class="mail" href="mailto:alabegames@gmail.com">alabegames@gmail.com</a>
+	</div></section>
 </main>
 
-<footer>
-	<div class="wrap">
-		<span>© 2026 Alabe Games</span>
-		<a href="privacy.html" data-i18n="privacy">Política de privacidade</a>
-	</div>
-</footer>
+<footer><div class="wrap"><span>© 2026 Alabe Games</span><a href="privacy.html" data-i18n="privacy">Política de privacidade</a></div></footer>
 
 <script>
 const T = {
 	pt: {},
 	en: {
-		nav_games: "Games", nav_about: "About", nav_contact: "Contact",
-		tagline: "Indie games from Brazil, easy to pick up and hard to put down.",
-		games_eyebrow: "Our games", games_title: "Our debut", status: "In testing on Google Play",
-		short: "Start at 23 with a party card and a dream. Will you end your career as head of state, or behind bars?",
+		nav_game: "The game", nav_projects: "In development", nav_about: "The studio", nav_contact: "Contact",
+		hero_label: "Independent Brazilian studio", hero_title: "Easy to pick up.<br><em>Hard to forget.</em>",
+		hero_desc: "In Candidatus, you start at 23 with a dream in politics. Win elections, govern and try to reach the presidency. Or end up behind bars.",
+		hero_cta: "Meet Candidatus", hero_more: "The studio", tag1: "Councilor at 29", tag2: "Live debate",
+		proof_label: "Made to play your way", fact_offline: "Works offline", fact_lang: "EN, PT and ES", fact_ads: "No forced ads",
+		game_eyebrow: "Featured game", game_title: "One career.<br>A thousand consequences.",
+		game_desc: "Your first office is only the beginning. What will you do with power, and what will it do to you?",
+		status: "In testing on Google Play",
+		short: "A political career simulator: start at 23, run for office, govern and try to reach the presidency without ending up behind bars.",
 		p1t: "Win elections", p1: "from city council to president, with real votes, seats and a rival who remembers",
 		p2t: "Govern", p2: "laws, budget, public works, your team and crises that come back to haunt you",
 		p3t: "Pay the price", p3: "corruption leaves a hidden risk that can turn into scandal or prison",
-		f1: "Android", f2: "English, Portuguese and Spanish", f3: "Plays offline", f4: "No forced ads",
-		about_eyebrow: "About the studio", about_title: "Small, Brazilian and stubborn",
-		about_1: "Alabe Games is an independent studio from Brazil. We make mobile games you understand in seconds and keep playing for hours.",
-		about_2: "Every game starts from a simple idea taken seriously: lots of choices, real consequences and no tricks to keep you hooked.",
-		v1t: "Simple on the surface", v1: "Quick taps, clear screens, a round on the bus or on the couch.",
+		s1t: "Create your politician", s1: "Country, name, face and career",
+		s2t: "Govern", s2: "Approval, funds and choices",
+		s3t: "TV debate", s3: "Quick answers, tough crowd",
+		s4t: "Vote count", s4: "Every ballot counts",
+		s5t: "Make headlines", s5: "For better or worse",
+		about_eyebrow: "About the studio", about_title: "Small games.<br>Big decisions.",
+		about_1: "Alabe Games is an independent Brazilian studio. We make games that are easy to pick up and hard to put down, without tricks to hold your attention.",
+		about_2: "We started on mobile and are exploring new ideas behind the scenes. What will not change: original ideas, real choices and respect for players.",
+		v1t: "Simple on the surface", v1: "Quick taps, clear screens. A round on the bus or on the couch.",
 		v2t: "Deep underneath", v2: "Systems that remember what you did and answer years later.",
-		v3t: "Fair to players", v3: "Ads only if you want them, and no pay to win.",
-		contact_eyebrow: "Contact", contact_title: "Talk to us",
-		contact_p: "Press, partnerships, a bug or an idea for our next game: write to us and we will answer.",
+		v3t: "Fair to players", v3: "Ads only if you want them. No pay to win.",
+		projects_eyebrow: "Behind the scenes", projects_title: "Two projects.<br>Secret for now.",
+		projects_intro: "Two new games are in development. We cannot say what they are yet, and the mystery is part of the fun.",
+		project_status: "In development",
+		project_one: "Project under wraps", project_one_desc: "No name, no trailer and no date yet. All we can say is that it is taking shape.",
+		project_two: "Another project under wraps", project_two_desc: "One more world being built behind the scenes. The details stay with us, for now.",
+		projects_foot: "We will tell you when it is ready to be told.",
+		contact_eyebrow: "Let's talk", contact_title: "Got an idea? Write to us.",
+		contact_p: "Press, partnerships, a bug or a suggestion for our next game: our inbox is open.",
 		privacy: "Privacy policy"
 	},
 	es: {
-		nav_games: "Juegos", nav_about: "Sobre nosotros", nav_contact: "Contacto",
-		tagline: "Juegos indie de Brasil, fáciles de empezar y difíciles de dejar.",
-		games_eyebrow: "Nuestros juegos", games_title: "El debut", status: "En prueba en Google Play",
-		short: "Empieza a los 23 años con un carné de partido y un sueño. ¿Terminarás tu carrera como jefe de Estado o tras las rejas?",
+		nav_game: "El juego", nav_projects: "En desarrollo", nav_about: "El estudio", nav_contact: "Contacto",
+		hero_label: "Estudio independiente brasileño", hero_title: "Fáciles de empezar.<br><em>Difíciles de olvidar.</em>",
+		hero_desc: "En Candidatus empiezas a los 23 años con un sueño en la política. Gana elecciones, gobierna e intenta llegar a la Presidencia. O termina entre rejas.",
+		hero_cta: "Conoce Candidatus", hero_more: "El estudio", tag1: "Concejala a los 29", tag2: "Debate en vivo",
+		proof_label: "Hecho para jugar a tu manera", fact_offline: "Funciona sin conexión", fact_lang: "ES, EN y PT", fact_ads: "Sin anuncios forzados",
+		game_eyebrow: "Juego destacado", game_title: "Una carrera.<br>Mil consecuencias.",
+		game_desc: "Tu primer cargo es solo el comienzo. ¿Qué harás con el poder, y qué hará el poder contigo?",
+		status: "En prueba en Google Play",
+		short: "Un simulador de carrera política: empieza a los 23, compite en elecciones, gobierna e intenta llegar a la Presidencia sin acabar entre rejas.",
 		p1t: "Gana elecciones", p1: "del concejo municipal a la presidencia, con votos, escaños y un rival que no olvida",
 		p2t: "Gobierna", p2: "leyes, presupuesto, obras, tu equipo y crisis que vuelven a cobrarte",
 		p3t: "Paga el precio", p3: "la corrupción deja un riesgo oculto que puede estallar en escándalo o prisión",
-		f1: "Android", f2: "Español, inglés y portugués", f3: "Funciona sin conexión", f4: "Sin anuncios forzados",
-		about_eyebrow: "Sobre el estudio", about_title: "Pequeño, brasileño y testarudo",
-		about_1: "Alabe Games es un estudio independiente de Brasil. Hacemos juegos para el celular que entiendes en segundos y sigues jugando por horas.",
-		about_2: "Cada juego nace de una idea simple tomada en serio: muchas decisiones, consecuencias reales y ningún truco para atraparte.",
-		v1t: "Simple por fuera", v1: "Toques rápidos, pantallas claras, una partida en el bus o en el sofá.",
+		s1t: "Crea tu político", s1: "País, nombre, rostro y profesión",
+		s2t: "Gobierna", s2: "Aprobación, fondos y decisiones",
+		s3t: "Debate en TV", s3: "Respuesta rápida, público exigente",
+		s4t: "Escrutinio", s4: "Cada urna cuenta",
+		s5t: "Sé noticia", s5: "Para bien o para mal",
+		about_eyebrow: "Sobre el estudio", about_title: "Juegos pequeños.<br>Grandes decisiones.",
+		about_1: "Alabe Games es un estudio independiente brasileño. Hacemos juegos fáciles de empezar y difíciles de dejar, sin trucos para retener tu atención.",
+		about_2: "Empezamos en móviles y exploramos nuevas ideas entre bastidores. Lo que no cambia: ideas propias, decisiones reales y respeto por quienes juegan.",
+		v1t: "Simple por fuera", v1: "Toques rápidos, pantallas claras. Una partida en el bus o en el sofá.",
 		v2t: "Profundo por dentro", v2: "Sistemas que recuerdan lo que hiciste y responden años después.",
-		v3t: "Justo con quien juega", v3: "Anuncios solo si quieres, y nada de pagar para ganar.",
-		contact_eyebrow: "Contacto", contact_title: "Habla con nosotros",
-		contact_p: "Prensa, alianzas, un error o una idea para el próximo juego: escríbenos y te respondemos.",
+		v3t: "Justo con quien juega", v3: "Anuncios solo si quieres. Nada de pagar para ganar.",
+		projects_eyebrow: "Entre bastidores", projects_title: "Dos proyectos.<br>Secreto por ahora.",
+		projects_intro: "Hay dos juegos nuevos en desarrollo. Aún no podemos contar qué son, y el misterio es parte de la diversión.",
+		project_status: "En desarrollo",
+		project_one: "Proyecto en secreto", project_one_desc: "Sin nombre, sin tráiler y sin fecha todavía. Solo podemos decir que está tomando forma.",
+		project_two: "Otro proyecto en secreto", project_two_desc: "Un mundo más que estamos construyendo entre bastidores. Los detalles se quedan con nosotros, por ahora.",
+		projects_foot: "Lo contaremos cuando esté listo para contarse.",
+		contact_eyebrow: "Hablemos", contact_title: "¿Tienes una idea? Escríbenos.",
+		contact_p: "Prensa, alianzas, errores o sugerencias para el próximo juego: nuestra bandeja está abierta.",
 		privacy: "Política de privacidad"
 	}
 };
 const ART = { pt: "candidatus-pt.png", en: "candidatus-en.png", es: "candidatus-es.png" };
-document.querySelectorAll("[data-i18n]").forEach(el => { T.pt[el.dataset.i18n] = el.textContent; });
+document.querySelectorAll("[data-i18n]").forEach(el => { T.pt[el.dataset.i18n] = el.innerHTML; });
 function setLang(l) {
 	if (!T[l]) l = "pt";
 	document.documentElement.lang = l === "pt" ? "pt-BR" : l;
-	document.querySelectorAll("[data-i18n]").forEach(el => { const v = T[l][el.dataset.i18n]; if (v) el.textContent = v; });
+	document.querySelectorAll("[data-i18n]").forEach(el => { const v = T[l][el.dataset.i18n]; if (v !== undefined) el.innerHTML = v; });
 	document.querySelector("[data-art]").src = ART[l];
 	document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === l)));
 	try { localStorage.setItem("alabe_lang", l); } catch (e) {}
@@ -259,6 +392,11 @@ let saved = null;
 try { saved = localStorage.getItem("alabe_lang"); } catch (e) {}
 const nav = (navigator.language || "pt").slice(0, 2);
 setLang(saved || (nav === "es" ? "es" : nav === "pt" ? "pt" : "en"));
+if ("IntersectionObserver" in window) {
+	document.documentElement.classList.add("motion");
+	const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+	document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+}
 </script>
 </body>
 </html>
