@@ -7,7 +7,7 @@
 <meta name="description" content="Estúdio indie brasileiro. Jogos fáceis de começar, cheios de escolhas e consequências. Conheça Candidatus, nosso simulador de carreira política.">
 <meta property="og:title" content="Alabe Games">
 <meta property="og:description" content="Fáceis de começar. Difíceis de esquecer. Conheça Candidatus, nosso simulador de carreira política.">
-<meta property="og:image" content="https://alabegames.github.io/candidatus-pt.png">
+<meta property="og:image" content="https://alabegames.github.io/candidatus-pt.png?v=3">
 <meta name="theme-color" content="#152C6E">
 <link rel="icon" href="favicon.png">
 <link rel="apple-touch-icon" href="icone-512.png">
@@ -254,7 +254,7 @@ footer a:hover { color: var(--yellow); }
 	<section id="jogo"><div class="wrap">
 		<div class="section-head reveal"><div><p class="eyebrow" data-i18n="game_eyebrow">Em destaque</p><h2 data-i18n="game_title">Uma carreira.<br>Mil consequências.</h2></div><p class="note" data-i18n="game_desc">Seu primeiro cargo é só o começo. O que você faz com o poder, e o que ele faz com você?</p></div>
 		<article class="game reveal">
-			<div class="art"><img data-art src="candidatus-pt.png" alt="Candidatus: da Câmara Municipal à Presidência" width="1024" height="500" loading="lazy"></div>
+			<div class="art"><img data-art src="candidatus-pt.png?v=3" alt="Candidatus: da Câmara Municipal à Presidência" width="1024" height="500" loading="lazy"></div>
 			<div class="info">
 				<div class="head"><img src="candidatus-icone.png" alt="" width="64" height="64"><div><h3>Candidatus</h3><span class="status" data-i18n="status">Em teste no Google Play</span></div></div>
 				<p class="short" data-i18n="short">Um simulador de carreira política: comece aos 23 anos, dispute eleições, governe e tente chegar à Presidência sem acabar atrás das grades.</p>
@@ -377,7 +377,7 @@ const T = {
 		privacy: "Política de privacidad"
 	}
 };
-const ART = { pt: "candidatus-pt.png", en: "candidatus-en.png", es: "candidatus-es.png" };
+const ART = { pt: "candidatus-pt.png?v=3", en: "candidatus-en.png?v=3", es: "candidatus-es.png?v=3" };
 document.querySelectorAll("[data-i18n]").forEach(el => { T.pt[el.dataset.i18n] = el.innerHTML; });
 function setLang(l) {
 	if (!T[l]) l = "pt";
